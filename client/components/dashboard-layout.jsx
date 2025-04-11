@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { BarChart3, Brain, ChevronDown, Home, Info, Lock, LogOut, Menu, Shield, Trophy, User, X } from 'lucide-react'
+import { BarChart3, Brain, ChevronDown, Home, Info, Lock, LogOut, Menu, Shield, Trophy, User, X } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
