@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { BarChart } from "@/components/ui/chart"
+// import { BarChart } from "@/components/ui/chart"
 import { Award, BarChart3, Brain, CheckCircle2, Mail, MessageSquare, Shield } from "lucide-react"
 
 export default function ProgressPage() {

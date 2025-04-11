@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Shield, Lock, Brain, Users, Award, CheckCircle } from 'lucide-react'
+import { ArrowRight, Shield, Lock, Brain, Users, Award, CheckCircle } from "lucide-react"
 
 export default function LandingPage() {
   return (
