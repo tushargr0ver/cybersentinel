@@ -1,8 +1,8 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "../components/mode-toggle"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -42,8 +42,26 @@ import {
 } from "@/components/ui/sidebar"
 
 export function DashboardLayout({ children }) {
-  const pathname = usePathname()
+  const [user, setUser] = useState(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const pathname = usePathname()
+  const router = useRouter()
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user")
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser))
+      } catch (error) {
+        console.error("Invalid user data in localStorage:", error)
+        localStorage.removeItem("user")
+        // router.push("/auth")
+      }
+    } else {
+      // router.push("/auth")
+    }
+  }, [router])
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: Home },
@@ -53,6 +71,11 @@ export function DashboardLayout({ children }) {
     { name: "Leaderboard", href: "/dashboard/leaderboard", icon: Trophy },
     { name: "Tips", href: "/dashboard/tips", icon: Info },
   ]
+
+  const logout = () => {
+    localStorage.removeItem("user")
+    router.push("/login")
+  }
 
   return (
     <SidebarProvider>
@@ -83,10 +106,10 @@ export function DashboardLayout({ children }) {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="w-full justify-start gap-2">
                   <Avatar className="h-6 w-6">
-                    <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                    <AvatarFallback>JD</AvatarFallback>
+                    <AvatarImage src={user?.prefs?.avatar || "/placeholder.svg"} />
+                    <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
                   </Avatar>
-                  <span>John Doe</span>
+                  <span>{user?.name || "Loading..."}</span>
                   <ChevronDown className="ml-auto h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -102,7 +125,7 @@ export function DashboardLayout({ children }) {
                   <span>Security</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={logout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                 </DropdownMenuItem>
@@ -111,7 +134,7 @@ export function DashboardLayout({ children }) {
           </SidebarFooter>
         </Sidebar>
 
-        {/* Mobile Menu */}
+        {/* Mobile Sidebar */}
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetContent side="left" className="w-64 p-0">
             <div className="flex h-16 items-center border-b px-4">
@@ -143,23 +166,21 @@ export function DashboardLayout({ children }) {
             <div className="absolute bottom-0 w-full border-t p-4">
               <div className="flex items-center gap-3">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                  <AvatarFallback>JD</AvatarFallback>
+                  <AvatarImage src={user?.prefs?.avatar || "/placeholder.svg"} />
+                  <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="text-sm font-medium">John Doe</p>
-                  <p className="text-xs text-muted-foreground">john.doe@example.com</p>
+                  <p className="text-sm font-medium">{user?.name || "Loading..."}</p>
+                  <p className="text-xs text-muted-foreground">{user?.email || "Loading..."}</p>
                 </div>
               </div>
             </div>
           </SheetContent>
         </Sheet>
 
-        {/* Main Content */}
+        {/* Main Content Area */}
         <div className="flex flex-1 flex-col">
-          {/* Header */}
           <header className="sticky top-0 z-10 flex h-16 items-center border-b bg-background px-4">
-            {/* ✅ Replaced SheetTrigger with Button */}
             <Button
               variant="ghost"
               size="icon"
@@ -169,15 +190,14 @@ export function DashboardLayout({ children }) {
               <Menu className="h-5 w-5" />
               <span className="sr-only">Toggle menu</span>
             </Button>
-
             <div className="ml-auto flex items-center gap-4">
               <ModeToggle />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="rounded-full">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                      <AvatarFallback>JD</AvatarFallback>
+                      <AvatarImage src={user?.prefs?.avatar || "/placeholder.svg"} />
+                      <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
@@ -193,19 +213,16 @@ export function DashboardLayout({ children }) {
                     <span>Security</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/">
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Log out</span>
-                    </Link>
+                  <DropdownMenuItem onClick={logout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </header>
 
-          {/* Page Content */}
-          <main className="flex-1 overflow-auto p-4 md:p-6 lg:p-8">{children}</main>
+          <main className="flex-1 p-4">{children}</main>
         </div>
       </div>
     </SidebarProvider>
