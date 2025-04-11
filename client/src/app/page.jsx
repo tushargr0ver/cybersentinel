@@ -70,7 +70,7 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="bg-muted py-20">
+      {/* <section className="bg-muted py-20">
         <div className="container mx-auto px-4">
           <h2 className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl">What Our Users Say</h2>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -101,7 +101,7 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <footer className="border-t py-12">
