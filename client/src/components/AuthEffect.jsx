@@ -5,8 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { account } from "@/lib/appwrite"
 
 export default function AuthEffect() {
-  const router = useRouter()
   const searchParams = useSearchParams()
+  const router = useRouter()
 
   useEffect(() => {
     const isOAuthRedirect = searchParams.get("success")
@@ -18,8 +18,7 @@ export default function AuthEffect() {
           localStorage.setItem("user", JSON.stringify(user))
           router.push("/dashboard")
         })
-        .catch((err) => {
-          console.error("Failed to fetch user:", err)
+        .catch(() => {
           router.push("/login")
         })
     }
