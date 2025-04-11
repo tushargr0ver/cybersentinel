@@ -4,9 +4,22 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ModeToggle } from "@/components/mode-toggle"
+import { ModeToggle } from "../components/mode-toggle"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { BarChart3, Brain, ChevronDown, Home, Info, Lock, LogOut, Menu, Shield, Trophy, User, X } from "lucide-react"
+import {
+  BarChart3,
+  Brain,
+  ChevronDown,
+  Home,
+  Info,
+  Lock,
+  LogOut,
+  Menu,
+  Shield,
+  Trophy,
+  User,
+  X,
+} from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +28,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent } from "@/components/ui/sheet"
 import {
   SidebarProvider,
   Sidebar,
@@ -146,12 +159,17 @@ export function DashboardLayout({ children }) {
         <div className="flex flex-1 flex-col">
           {/* Header */}
           <header className="sticky top-0 z-10 flex h-16 items-center border-b bg-background px-4">
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </SheetTrigger>
+            {/* ✅ Replaced SheetTrigger with Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+
             <div className="ml-auto flex items-center gap-4">
               <ModeToggle />
               <DropdownMenu>

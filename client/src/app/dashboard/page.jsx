@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { DashboardLayout } from "@/components/dashboard-layout"
+import { DashboardLayout } from "../../../components/dashboard-layout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
@@ -7,8 +7,9 @@ import { ArrowRight, Award, BarChart3, Brain, Mail, MessageSquare, Shield } from
 
 export default function DashboardPage() {
   return (
-    <DashboardLayout>
-      <div className="space-y-8">
+    <>
+     <DashboardLayout>
+       <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">Welcome back, John! Here's your security training overview.</p>
@@ -49,10 +50,10 @@ export default function DashboardPage() {
               <p className="mt-2 text-xs text-muted-foreground">+5% from previous quiz</p>
             </CardContent>
           </Card>
-        </div>
+        </div> 
 
         {/* Recent Activity */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Card className="md:col-span-2">
             <CardHeader>
               <CardTitle>Recent Activity</CardTitle>
@@ -136,8 +137,9 @@ export default function DashboardPage() {
             ))}
           </div>
         </div>
-      </div>
+      </div> 
     </DashboardLayout>
+    </>
   )
 }
 

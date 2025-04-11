@@ -1,6 +1,6 @@
 "use client"
 
-import { DashboardLayout } from "@/components/dashboard-layout"
+import { DashboardLayout } from "../../../../components/dashboard-layout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -78,7 +78,7 @@ export default function ProgressPage() {
                 <CardDescription>Your quiz and simulation scores over the past 3 months</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-[300px]">
+                {/* <div className="h-[300px]">
                   <BarChart
                     data={performanceData}
                     index="month"
@@ -87,7 +87,7 @@ export default function ProgressPage() {
                     valueFormatter={(value) => `${value}%`}
                     yAxisWidth={40}
                   />
-                </div>
+                </div> */}
                 <div className="mt-4 flex items-center justify-center gap-4">
                   <div className="flex items-center gap-2">
                     <div className="h-3 w-3 rounded-full bg-[var(--color-chart-1)]"></div>
