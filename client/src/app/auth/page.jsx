@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, Suspense } from "react"
 import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -14,44 +14,27 @@ import {
 } from "@/components/ui/card"
 import { Shield, Github } from "lucide-react"
 import { account } from "@/lib/appwrite"
+import AuthEffect from "@/components/AuthEffect"
 
 export default function AuthPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const searchParams = useSearchParams()
-
-  useEffect(() => {
-    // 👇 Check if redirected back from GitHub login
-    const isOAuthRedirect = searchParams.get("success")
-
-    if (typeof window !== "undefined" && isOAuthRedirect !== null) {
-      setLoading(true)
-      account
-        .get()
-        .then((user) => {
-          // 👇 Save user info in localStorage
-          localStorage.setItem("user", JSON.stringify(user))
-          router.push("/dashboard")
-        })
-        .catch((err) => {
-          console.error("Failed to fetch user:", err)
-          router.push("/login")
-        })
-        .finally(() => setLoading(false))
-    }
-  }, [searchParams, router])
 
   const loginWithGitHub = () => {
     setLoading(true)
     account.createOAuth2Session(
       "github",
-      `${window.location.origin}/dashboard`, // 👈 so we know it's a redirect
+      `${window.location.origin}/dashboard`,
       `${window.location.origin}/login?error=1`
     )
   }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
+      <Suspense fallback={null}>
+        <AuthEffect />
+      </Suspense>
+
       <Link href="/" className="mb-8 flex items-center gap-2">
         <Shield className="h-6 w-6 text-primary" />
         <span className="text-xl font-bold">CyberSentinel</span>
