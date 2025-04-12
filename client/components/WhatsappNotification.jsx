@@ -1,28 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function WhatsappNotification() {
-  const [notification, setNotification] = useState({ name: "Unknown", message: "..." });
 
-  useEffect(() => {
-    const fetchNotification = async () => {
-      try {
-        const res = await fetch('http://localhost:4000/api/whatsapp-notification');
-        const data = await res.json();
-        setNotification({
-          name: data.name || "Unknown Sender",
-          message: data.message || "⚠️ Couldn’t fetch message",
-        });
-      } catch (err) {
-        console.error("Frontend error:", err);
-        setNotification({
-          name: "Unknown",
-          message: "⚠️ Error fetching message",
-        });
-      }
-    };
-
-    fetchNotification();
-  }, []);
 
   return (
     <div className="w-[320px] bg-white rounded-xl mt-2 shadow-md border border-gray-300 text-sm font-sans cursor-pointer">
@@ -49,8 +28,8 @@ export default function WhatsappNotification() {
         </div>
 
         <div className="flex-1">
-          <p className="font-semibold text-gray-900">{notification.name}</p>
-          <p className="text-gray-800">{notification.message}</p>
+          <p className="font-semibold text-gray-900">name</p>
+          <p className="text-gray-800">mESSAGE</p>
         </div>
       </div>
 
