@@ -36,24 +36,25 @@ export default function AuthPage() {
       </Suspense>
 
       <Link href="/" className="mb-8 flex items-center gap-2">
-        <Shield className="h-6 w-6 text-primary" />
+        <Shield className="h-6 w-6 text-green-400" />
         <span className="text-xl font-bold">CyberSentinel</span>
       </Link>
 
       <Card className="mx-auto w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
+          <CardTitle className="text-2xl text-green-400 font-bold">Welcome back</CardTitle>
           <CardDescription>Sign in to your account to continue</CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Button
-              variant="outline"
-              className="w-full justify-start gap-2"
-              onClick={loginWithGitHub}
-              disabled={loading}
-            >
+          <Button
+  variant="outline"
+  className="w-full justify-start gap-2 hover:!border-green-400"
+  onClick={loginWithGitHub}
+  disabled={loading}
+>
+
               <Github className="h-5 w-5" />
               {loading ? "Redirecting..." : "Continue with GitHub"}
             </Button>
